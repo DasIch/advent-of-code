@@ -13,6 +13,7 @@ mod day01;
 mod day02;
 mod day03;
 mod day04;
+mod day05;
 
 #[derive(Parser, Debug)]
 struct Cli {
@@ -29,6 +30,7 @@ enum Commands {
     Day02,
     Day03,
     Day04,
+    Day05,
 }
 
 /// Reads the file at `path` into a String. If the `path` is `-`, stdin is read
@@ -60,6 +62,9 @@ fn main() -> anyhow::Result<()> {
         }
         Commands::Day04 => {
             day04::main(input.as_str())?;
+        }
+        Commands::Day05 => {
+            day05::main(input.as_str())?;
         }
     }
 
