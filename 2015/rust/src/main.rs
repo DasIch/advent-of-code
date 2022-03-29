@@ -1,5 +1,7 @@
 extern crate anyhow;
 extern crate clap;
+extern crate md5;
+extern crate rayon;
 
 use std::fs::File;
 use std::io::Read;
@@ -10,6 +12,7 @@ use clap::{ArgEnum, Parser};
 mod day01;
 mod day02;
 mod day03;
+mod day04;
 
 #[derive(Parser, Debug)]
 struct Cli {
@@ -25,6 +28,7 @@ enum Commands {
     Day01,
     Day02,
     Day03,
+    Day04,
 }
 
 /// Reads the file at `path` into a String. If the `path` is `-`, stdin is read
@@ -53,6 +57,9 @@ fn main() -> anyhow::Result<()> {
         }
         Commands::Day03 => {
             day03::main(input.as_str())?;
+        }
+        Commands::Day04 => {
+            day04::main(input.as_str())?;
         }
     }
 
