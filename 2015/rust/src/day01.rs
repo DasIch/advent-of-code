@@ -1,4 +1,4 @@
-pub fn main(input: &str) {
+pub fn main(input: &str) -> anyhow::Result<()> {
     let mut floor = 0;
     let mut first_basement_visit_at_position = None;
     for (i, c) in input.chars().enumerate() {
@@ -17,5 +17,9 @@ pub fn main(input: &str) {
         }
     }
     println!("Floor: {}", floor);
-    println!("First basement visit at position: {:?}", first_basement_visit_at_position);
+    println!(
+        "First basement visit at position: {:?}",
+        first_basement_visit_at_position
+    );
+    Ok(())
 }
