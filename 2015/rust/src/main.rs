@@ -9,6 +9,7 @@ use clap::{ArgEnum, Parser};
 
 mod day01;
 mod day02;
+mod day03;
 
 #[derive(Parser, Debug)]
 struct Cli {
@@ -23,6 +24,7 @@ struct Cli {
 enum Commands {
     Day01,
     Day02,
+    Day03,
 }
 
 /// Reads the file at `path` into a String. If the `path` is `-`, stdin is read
@@ -48,6 +50,9 @@ fn main() -> anyhow::Result<()> {
         }
         Commands::Day02 => {
             day02::main(input.as_str())?;
+        }
+        Commands::Day03 => {
+            day03::main(input.as_str())?;
         }
     }
 
