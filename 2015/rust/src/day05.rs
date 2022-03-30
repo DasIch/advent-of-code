@@ -53,8 +53,7 @@ fn is_nice_part1(s: &str) -> bool {
 }
 
 fn is_nice_part2(s: &str) -> bool {
-    contains_nonoverlapping_pair_twice(s) &&
-    contains_sandwiched_character(s)
+    contains_nonoverlapping_pair_twice(s) && contains_sandwiched_character(s)
 }
 
 pub fn main(input: &str) -> anyhow::Result<()> {
@@ -65,7 +64,6 @@ pub fn main(input: &str) -> anyhow::Result<()> {
 
     Ok(())
 }
-
 
 #[cfg(test)]
 mod tests {
