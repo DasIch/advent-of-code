@@ -1,9 +1,9 @@
 fn unquote(s: &str) -> String {
     let mut result = String::new();
     let mut chars = s
-        .strip_prefix("\"")
+        .strip_prefix('"')
         .unwrap()
-        .strip_suffix("\"")
+        .strip_suffix('"')
         .unwrap()
         .chars()
         .enumerate();
@@ -23,10 +23,10 @@ fn unquote(s: &str) -> String {
                         // skip
                         chars.next();
                         chars.next();
-                    },
+                    }
                     Some((_, c)) => {
                         result.push(c);
-                    },
+                    }
                     _ => unreachable!("invalid escape sequence"),
                 }
             }
@@ -104,8 +104,16 @@ mod tests {
         assert_eq!(unquote("\"\\x27\"").len(), 1);
 
         // custom cases
-        assert_eq!(unquote("\"v\\xfb\\\"lgs\\\"kvjfywmut\\x9cr\""), "vû\"lgs\"kvjfywmut\u{9c}r");
-        assert_eq!(unquote("\"v\\xfb\\\"lgs\\\"kvjfywmut\\x9cr\"").chars().count(), 18);
+        assert_eq!(
+            unquote("\"v\\xfb\\\"lgs\\\"kvjfywmut\\x9cr\""),
+            "vû\"lgs\"kvjfywmut\u{9c}r"
+        );
+        assert_eq!(
+            unquote("\"v\\xfb\\\"lgs\\\"kvjfywmut\\x9cr\"")
+                .chars()
+                .count(),
+            18
+        );
     }
 
     #[test]
