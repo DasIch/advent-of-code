@@ -19,6 +19,7 @@ mod day07;
 mod day08;
 mod day09;
 mod day10;
+mod day11;
 
 #[derive(Parser, Debug)]
 struct Cli {
@@ -41,6 +42,7 @@ enum Commands {
     Day08,
     Day09,
     Day10,
+    Day11,
 }
 
 /// Reads the file at `path` into a String. If the `path` is `-`, stdin is read
@@ -60,38 +62,20 @@ fn main() -> anyhow::Result<()> {
     let args = Cli::parse();
     let input = read_input(args.input.as_path())?;
 
-    match &args.command {
-        Commands::Day01 => {
-            day01::main(input.as_str())?;
-        }
-        Commands::Day02 => {
-            day02::main(input.as_str())?;
-        }
-        Commands::Day03 => {
-            day03::main(input.as_str())?;
-        }
-        Commands::Day04 => {
-            day04::main(input.as_str())?;
-        }
-        Commands::Day05 => {
-            day05::main(input.as_str())?;
-        }
-        Commands::Day06 => {
-            day06::main(input.as_str())?;
-        }
-        Commands::Day07 => {
-            day07::main(input.as_str())?;
-        }
-        Commands::Day08 => {
-            day08::main(input.as_str())?;
-        }
-        Commands::Day09 => {
-            day09::main(input.as_str())?;
-        }
-        Commands::Day10 => {
-            day10::main(input.as_str())?;
-        }
-    }
+    let command = match &args.command {
+        Commands::Day01 => day01::main,
+        Commands::Day02 => day02::main,
+        Commands::Day03 => day03::main,
+        Commands::Day04 => day04::main,
+        Commands::Day05 => day05::main,
+        Commands::Day06 => day06::main,
+        Commands::Day07 => day07::main,
+        Commands::Day08 => day08::main,
+        Commands::Day09 => day09::main,
+        Commands::Day10 => day10::main,
+        Commands::Day11 => day11::main,
+    };
+    command(input.as_str())?;
 
     Ok(())
 }
