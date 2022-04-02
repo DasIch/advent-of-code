@@ -1,5 +1,6 @@
 extern crate anyhow;
 extern crate clap;
+extern crate json;
 extern crate md5;
 extern crate rayon;
 
@@ -20,6 +21,7 @@ mod day08;
 mod day09;
 mod day10;
 mod day11;
+mod day12;
 
 #[derive(Parser, Debug)]
 struct Cli {
@@ -43,6 +45,7 @@ enum Commands {
     Day09,
     Day10,
     Day11,
+    Day12,
 }
 
 /// Reads the file at `path` into a String. If the `path` is `-`, stdin is read
@@ -74,6 +77,7 @@ fn main() -> anyhow::Result<()> {
         Commands::Day09 => day09::main,
         Commands::Day10 => day10::main,
         Commands::Day11 => day11::main,
+        Commands::Day12 => day12::main,
     };
     command(input.as_str())?;
 
