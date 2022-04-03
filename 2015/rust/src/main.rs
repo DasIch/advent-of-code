@@ -33,14 +33,14 @@ mod day18;
 #[derive(Parser, Debug)]
 struct Cli {
     #[clap(arg_enum)]
-    command: Commands,
+    command: Command,
 
     #[clap(default_value = "-")]
     input: PathBuf,
 }
 
 #[derive(ArgEnum, Clone, Copy, Debug)]
-enum Commands {
+enum Command {
     Day01,
     Day02,
     Day03,
@@ -78,23 +78,23 @@ fn main() -> anyhow::Result<()> {
     let input = read_input(args.input.as_path())?;
 
     let command = match &args.command {
-        Commands::Day01 => day01::main,
-        Commands::Day02 => day02::main,
-        Commands::Day03 => day03::main,
-        Commands::Day04 => day04::main,
-        Commands::Day05 => day05::main,
-        Commands::Day06 => day06::main,
-        Commands::Day07 => day07::main,
-        Commands::Day08 => day08::main,
-        Commands::Day09 => day09::main,
-        Commands::Day10 => day10::main,
-        Commands::Day11 => day11::main,
-        Commands::Day12 => day12::main,
-        Commands::Day13 => day13::main,
-        Commands::Day14 => day14::main,
-        Commands::Day15 => day15::main,
-        Commands::Day16 => day16::main,
-        Commands::Day18 => day18::main,
+        Command::Day01 => day01::main,
+        Command::Day02 => day02::main,
+        Command::Day03 => day03::main,
+        Command::Day04 => day04::main,
+        Command::Day05 => day05::main,
+        Command::Day06 => day06::main,
+        Command::Day07 => day07::main,
+        Command::Day08 => day08::main,
+        Command::Day09 => day09::main,
+        Command::Day10 => day10::main,
+        Command::Day11 => day11::main,
+        Command::Day12 => day12::main,
+        Command::Day13 => day13::main,
+        Command::Day14 => day14::main,
+        Command::Day15 => day15::main,
+        Command::Day16 => day16::main,
+        Command::Day18 => day18::main,
     };
     command(input.as_str())?;
 
