@@ -28,6 +28,7 @@ mod day13;
 mod day14;
 mod day15;
 mod day16;
+mod day17;
 mod day18;
 
 #[derive(Parser, Debug)]
@@ -57,6 +58,7 @@ enum Command {
     Day14,
     Day15,
     Day16,
+    Day17,
     Day18,
 }
 
@@ -94,6 +96,7 @@ fn main() -> anyhow::Result<()> {
         Command::Day14 => day14::main,
         Command::Day15 => day15::main,
         Command::Day16 => day16::main,
+        Command::Day17 => day17::main,
         Command::Day18 => day18::main,
     };
     command(input.as_str())?;
