@@ -1,5 +1,6 @@
 extern crate anyhow;
 extern crate clap;
+extern crate md5;
 
 use std::fs::File;
 use std::io::Read;
