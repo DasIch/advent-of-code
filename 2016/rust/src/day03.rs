@@ -32,7 +32,7 @@ fn regroup(triangles: &[(u32, u32, u32)]) -> Vec<(u32, u32, u32)> {
 }
 
 pub fn main(input: &str) -> anyhow::Result<()> {
-    let triangles = parse_input(&input);
+    let triangles = parse_input(input);
     let possible_triangle_count = triangles
         .iter()
         .filter(|triangle| is_triangle(**triangle))

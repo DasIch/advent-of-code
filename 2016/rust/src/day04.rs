@@ -25,11 +25,11 @@ impl fmt::Display for Room {
 }
 
 fn parse_input(input: &str) -> Vec<Room> {
-    input.lines().map(|line| parse_room(line)).collect()
+    input.lines().map(parse_room).collect()
 }
 
 fn parse_room(line: &str) -> Room {
-    let (left, checksum) = line.strip_suffix("]").unwrap().split_once('[').unwrap();
+    let (left, checksum) = line.strip_suffix(']').unwrap().split_once('[').unwrap();
     let (encrypted_name, sector_id) = left.rsplit_once('-').unwrap();
     Room {
         encrypted_name: encrypted_name.to_string(),
@@ -92,8 +92,7 @@ pub fn main(input: &str) -> anyhow::Result<()> {
         "Sector ID of northpole-object-storage: {}",
         rooms
             .iter()
-            .filter(|room| room.name() == "northpole-object-storage")
-            .next()
+            .find(|room| room.name() == "northpole-object-storage")
             .unwrap()
             .sector_id
     );
