@@ -22,6 +22,22 @@ struct Instruction {
     blocks: i32,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+struct Location {
+    x: i32,
+    y: i32,
+}
+
+impl Location {
+    fn new(x: i32, y: i32) -> Self {
+        Self { x, y }
+    }
+
+    fn distance_to_origin(&self) -> i32 {
+        self.x.abs() + self.y.abs()
+    }
+}
+
 fn parse_input(input: &str) -> anyhow::Result<Vec<Instruction>> {
     input.trim().split(", ").map(parse_instruction).collect()
 }
@@ -44,9 +60,9 @@ fn parse_instruction(s: &str) -> anyhow::Result<Instruction> {
     }
 }
 
-fn follow_instructions(instructions: &[Instruction]) -> (i32, HashMap<(i32, i32), (i32, i32)>) {
+fn follow_instructions(instructions: &[Instruction]) -> (i32, HashMap<Location, (u32, u32)>) {
     let mut facing = Direction::North;
-    let mut location = (0, 0);
+    let mut location = Location::new(0, 0);
     let mut visit_counter = 0;
     let mut visited_locations = HashMap::new();
 
@@ -63,24 +79,21 @@ fn follow_instructions(instructions: &[Instruction]) -> (i32, HashMap<(i32, i32)
         };
         for _ in 0..instruction.blocks {
             location = match facing {
-                Direction::North => (location.0, location.1 + 1),
-                Direction::East => (location.0 + 1, location.1),
-                Direction::South => (location.0, location.1 - 1),
-                Direction::West => (location.0 - 1, location.1),
+                Direction::North => Location::new(location.x, location.y + 1),
+                Direction::East => Location::new(location.x + 1, location.y),
+                Direction::South => Location::new(location.x, location.y - 1),
+                Direction::West => Location::new(location.x - 1, location.y),
             };
             let visits = visited_locations
                 .entry(location)
                 .or_insert((visit_counter, 0));
+            (*visits).0 = visit_counter;
             (*visits).1 += 1;
             visit_counter += 1;
         }
     }
 
-    (calculate_distance(location), visited_locations)
-}
-
-fn calculate_distance(location: (i32, i32)) -> i32 {
-    location.0.abs() + location.1.abs()
+    (location.distance_to_origin(), visited_locations)
 }
 
 pub fn main(input: &str) -> anyhow::Result<()> {
@@ -90,7 +103,7 @@ pub fn main(input: &str) -> anyhow::Result<()> {
 
     println!("Distance from initial location: {distance}");
 
-    let mut locations_visited_twice: Vec<((i32, i32), (i32, i32))> = visited_locations
+    let mut locations_visited_twice: Vec<(Location, (u32, u32))> = visited_locations
         .into_iter()
         .filter(|(_, (_, visits))| *visits == 2)
         .collect();
@@ -100,7 +113,7 @@ pub fn main(input: &str) -> anyhow::Result<()> {
 
     println!(
         "Distance from first location visited twice: {}",
-        calculate_distance(first_location_visited_twice)
+        first_location_visited_twice.distance_to_origin()
     );
 
     Ok(())
