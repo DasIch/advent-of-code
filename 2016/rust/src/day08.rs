@@ -25,7 +25,7 @@ impl Screen {
     }
 
     fn rotate_row(&mut self, row: usize, k: usize) {
-        let mut rotated: VecDeque<bool> = self.pixels[row].iter().map(|pixel| *pixel).collect();
+        let mut rotated: VecDeque<bool> = self.pixels[row].iter().copied().collect();
         rotated.rotate_right(k);
         for (i, pixel) in rotated.into_iter().enumerate() {
             self.pixels[row][i] = pixel;
